@@ -1,0 +1,54 @@
+﻿<Window x:Class="WpfAudioPlayer.Views.User"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAudioPlayer.Views"
+        mc:Ignorable="d"
+        Title="User" Height="450" Width="800">
+    <Grid>
+        <DataGrid HorizontalAlignment="Left"
+                  IsReadOnly="True"
+                  Height="160"
+                  Margin="10,10,0,0"
+                  VerticalAlignment="Top"
+                  Width="auto"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding SongsList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Song, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding SongName}" />
+                <DataGridTextColumn Header="Author"
+                                    Binding="{Binding Author}" />
+                <DataGridTextColumn Header="Duration"
+                                    Binding="{Binding DurationInSeconds}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Add song"
+                Command="{Binding AddSong, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="10,320,0,0"
+                VerticalAlignment="Top"
+                Width="120" />
+        <Button Content="Delete song"
+                Command="{Binding DeleteSong, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="10,350,0,0"
+                VerticalAlignment="Top"
+                Width="120" />
+        <Button Content="Play"
+                Command="{Binding PlaySong, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="10,230,0,0"
+                VerticalAlignment="Top"
+                Width="80" 
+                Height="30"/>
+        <Button Content="Add all played songs to the database"
+                Command="{Binding SortList, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="150,350,0,0"
+                VerticalAlignment="Top"
+                Width="210" />
+    </Grid>
+</Window>
