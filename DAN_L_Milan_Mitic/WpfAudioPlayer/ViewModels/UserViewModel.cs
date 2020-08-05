@@ -57,6 +57,19 @@ namespace WpfAudioPlayer.ViewModels
             }
         }
 
+        private tblSong song;
+
+        public tblSong Song
+        {
+            get { return song; }
+            set
+            {
+                song = value;
+                OnPropertyChanged("Song");
+            }
+        }
+
+
         #endregion
 
         #region Commands 
@@ -93,6 +106,47 @@ namespace WpfAudioPlayer.ViewModels
         private bool CanAddSongExecute()
         {
             return true;
+        }
+
+        private ICommand deleteSong;
+
+        public ICommand DeleteSong
+        {
+            get
+            {
+                if (deleteSong == null)
+                {
+                    deleteSong = new RelayCommand(param => DeleteSongExecute(), param => CanDeleteSongExecute());
+                }
+
+                return deleteSong;
+            }
+        }
+
+        private void DeleteSongExecute()
+        {
+            try
+            {
+                service.DeleteSong(Song);
+                MessageBox.Show("Song deleted.");
+                SongsList = service.GetUserSongs(userToView.UserName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanDeleteSongExecute()
+        {
+            if (Song != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion

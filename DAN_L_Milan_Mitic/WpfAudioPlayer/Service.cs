@@ -85,6 +85,20 @@ namespace WpfAudioPlayer
         }
 
         /// <summary>
+        /// Deletes the song from tblSong in the database
+        /// </summary>
+        /// <param name="song"></param>
+        internal void DeleteSong(tblSong song)
+        {
+            using (AudioPlayerEntities context = new AudioPlayerEntities())
+            {
+                tblSong songToDelete = (from s in context.tblSongs where s.SongID == song.SongID select s).First();
+                context.tblSongs.Remove(songToDelete);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Returns list of songs with user's ID.
         /// </summary>
         /// <param name="userName"></param>
