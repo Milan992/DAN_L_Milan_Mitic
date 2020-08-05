@@ -82,6 +82,7 @@ namespace WpfAudioPlayer.ViewModels
             {
                 AddSong addsong = new AddSong(UserToView);
                 addsong.ShowDialog();
+                SongsList = service.GetUserSongs(userToView.UserName);
             }
             catch (Exception ex)
             {

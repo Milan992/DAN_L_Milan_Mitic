@@ -91,7 +91,7 @@ namespace WpfAudioPlayer.ViewModels
             }
             catch
             {
-                MessageBox.Show("Username already exists or wrong format");
+                MessageBox.Show("Username already exists or wrong format.");
             }
         }
 

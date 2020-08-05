@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         Title="User" Height="450" Width="800">
     <Grid>
+        <DataGrid HorizontalAlignment="Left"
+                  IsReadOnly="True"
+                  Height="160"
+                  Margin="10,10,0,0"
+                  VerticalAlignment="Top"
+                  Width="auto"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding SongsList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Song, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding SongName}" />
+                <DataGridTextColumn Header="Author"
+                                    Binding="{Binding Author}" />
+                <DataGridTextColumn Header="Duration"
+                                    Binding="{Binding DurationInSeconds}" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Content="Add song"
                 Command="{Binding AddSong, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left"
