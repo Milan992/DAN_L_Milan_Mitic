@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using WpfAudioPlayer.Model;
 using WpfAudioPlayer.Views;
 
@@ -10,6 +13,7 @@ namespace WpfAudioPlayer
 {
     class Service
     {
+        AutoResetEvent are = new AutoResetEvent(false);
         /// <summary>
         /// Adds an user to the data base
         /// </summary>
@@ -112,6 +116,39 @@ namespace WpfAudioPlayer
                 list = (from s in context.tblSongs where s.UserID == user.UserID select s).ToList();
             }
             return list;
+        }
+
+        internal void PlaySong(tblSong song, tblUser user)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(@"..\..\MyMusic"+ user.UserName +".txt", true))
+                {
+                    sw.WriteLine("playing -" + song.Author + " -" + song.SongName + " -" + DateTime.Now.ToString());
+                }
+                Thread.Sleep(song.DurationInSeconds * 1000);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            are.Set();
+        }
+
+        internal void FinishSong(tblSong song, tblUser user)
+        {
+            are.WaitOne();
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(@"..\..\MyMusic" + user.UserName + ".txt", true))
+                {
+                    sw.WriteLine("finished playing -" + song.Author + " -" + song.SongName + " -" + DateTime.Now.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

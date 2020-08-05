@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -138,6 +139,48 @@ namespace WpfAudioPlayer.ViewModels
         }
 
         private bool CanDeleteSongExecute()
+        {
+            if (Song != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private ICommand playSong;
+
+        public ICommand PlaySong
+        {
+            get
+            {
+                if (playSong == null)
+                {
+                    playSong = new RelayCommand(param => PlaySongExecute(), param => CanPlaySongExecute());
+                }
+
+                return playSong;
+            }
+        }
+
+        private void PlaySongExecute()
+        {
+            try
+            {
+               Thread play = new Thread(() => service.PlaySong(Song, UserToView));
+                Thread finish = new Thread(() => service.FinishSong(Song, UserToView));
+                play.Start();
+                finish.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanPlaySongExecute()
         {
             if (Song != null)
             {
