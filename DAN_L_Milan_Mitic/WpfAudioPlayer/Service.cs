@@ -144,6 +144,7 @@ namespace WpfAudioPlayer
                 {
                     sw.WriteLine("finished playing -" + song.Author + " -" + song.SongName + " -" + DateTime.Now.ToString());
                 }
+                MessageBox.Show(song.SongName + " finished");
             }
             catch (Exception ex)
             {

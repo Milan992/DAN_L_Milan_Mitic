@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -169,7 +170,7 @@ namespace WpfAudioPlayer.ViewModels
         {
             try
             {
-               Thread play = new Thread(() => service.PlaySong(Song, UserToView));
+                Thread play = new Thread(() => service.PlaySong(Song, UserToView));
                 Thread finish = new Thread(() => service.FinishSong(Song, UserToView));
                 play.Start();
                 finish.Start();
@@ -191,7 +192,7 @@ namespace WpfAudioPlayer.ViewModels
                 return false;
             }
         }
-
+        
         #endregion
     }
 }
