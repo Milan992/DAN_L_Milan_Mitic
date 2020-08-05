@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using WpfAudioPlayer.Model;
 using WpfAudioPlayer.Views;
 
 namespace WpfAudioPlayer.ViewModels
@@ -83,14 +84,14 @@ namespace WpfAudioPlayer.ViewModels
                 }
                 else
                 {
-                    service.AddUser(UserName, Password);
+                    tblUser newUser = service.AddUser(UserName, Password);
                     User user = new User(UserName);
                     user.ShowDialog();
                 }
             }
             catch
             {
-                MessageBox.Show("Username already exists.");
+                MessageBox.Show("Username already exists or wrong format");
             }
         }
 

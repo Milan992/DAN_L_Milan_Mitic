@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfAudioPlayer.Model;
 using WpfAudioPlayer.Views;
 
 namespace WpfAudioPlayer.ViewModels
 {
-    class UserViewModel
+    class UserViewModel : ViewModelBase
     {
         User user;
         Service service = new Service();
@@ -22,6 +23,7 @@ namespace WpfAudioPlayer.ViewModels
         public UserViewModel(User userOpen, string userName)
         {
             user = userOpen;
+            userToView = service.GetUser(userName);
             songsList = service.GetUserSongs(userName);
         }
 
@@ -29,7 +31,30 @@ namespace WpfAudioPlayer.ViewModels
 
         #region Properties
 
+        private tblUser userToView;
 
+        public tblUser UserToView
+        {
+            get { return userToView; }
+            set
+            {
+                userToView = value;
+                OnPropertyChanged("UserToView");
+            }
+        }
+
+
+        private List<tblSong> songsList;
+
+        public List<tblSong> SongsList
+        {
+            get { return songsList; }
+            set
+            {
+                songsList = value;
+                OnPropertyChanged("SongsList");
+            }
+        }
 
         #endregion
     }
