@@ -44,6 +44,25 @@ namespace WpfAudioPlayer
         }
 
         /// <summary>
+        /// Adds a song to the database.
+        /// </summary>
+        /// <param name="song"></param>
+        /// <param name="user"></param>
+        internal void AddSong(tblSong song, int userID)
+        {
+            using (AudioPlayerEntities context = new AudioPlayerEntities())
+            {
+                tblSong newSong = new tblSong();
+                newSong.SongName = song.SongName;
+                newSong.Author = song.Author;
+                newSong.DurationInSeconds = song.DurationInSeconds;
+                newSong.UserID = userID;
+                context.tblSongs.Add(newSong);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Checks if user with userName and password exists in the database.
         /// </summary>
         /// <param name="userName"></param>

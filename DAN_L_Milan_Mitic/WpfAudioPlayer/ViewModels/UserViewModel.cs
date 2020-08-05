@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using WpfAudioPlayer.Model;
 using WpfAudioPlayer.Views;
 
@@ -43,7 +45,6 @@ namespace WpfAudioPlayer.ViewModels
             }
         }
 
-
         private List<tblSong> songsList;
 
         public List<tblSong> SongsList
@@ -54,6 +55,43 @@ namespace WpfAudioPlayer.ViewModels
                 songsList = value;
                 OnPropertyChanged("SongsList");
             }
+        }
+
+        #endregion
+
+        #region Commands 
+
+        private ICommand addsong;
+
+        public ICommand AddSong
+        {
+            get
+            {
+                if (addsong == null)
+                {
+                    addsong = new RelayCommand(param => AddSongExecute(), param => CanAddSongExecute());
+                }
+
+                return addsong;
+            }
+        }
+
+        private void AddSongExecute()
+        {
+            try
+            {
+                AddSong addsong = new AddSong(UserToView);
+                addsong.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanAddSongExecute()
+        {
+            return true;
         }
 
         #endregion

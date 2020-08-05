@@ -7,6 +7,30 @@
         mc:Ignorable="d"
         Title="User" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Add song"
+                Command="{Binding AddSong, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="10,320,0,0"
+                VerticalAlignment="Top"
+                Width="120" />
+        <Button Content="Delete song"
+                Command="{Binding DeleteSong, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="10,350,0,0"
+                VerticalAlignment="Top"
+                Width="120" />
+        <Button Content="Play"
+                Command="{Binding Play, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="10,230,0,0"
+                VerticalAlignment="Top"
+                Width="80" 
+                Height="30"/>
+        <Button Content="Add all played songs to the database"
+                Command="{Binding DeleteSong, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="150,350,0,0"
+                VerticalAlignment="Top"
+                Width="210" />
     </Grid>
 </Window>
